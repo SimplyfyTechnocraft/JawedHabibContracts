@@ -63,17 +63,16 @@ contract JawedHabib is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable
         super._update(from, to, value);
     }
 
-    // New function to withdraw ETH from the contract
-    function withdraw(uint256 amount) public onlyOwner {
-        require(address(this).balance >= amount, "Insufficient balance");
+   function withdraw(uint256 amount) public onlyOwner {
+    // Use address(this).balance to check the contract's balance
+    require(address(this).balance > amount, "Insufficient balance");
 
-        // Transfer the specified amount of ETH to the owner
-        payable(owner()).transfer(amount);
+    // Transfer the specified amount of ETH to the owner
+    payable(owner()).transfer(amount);
 
-        // Emit the Withdraw event
-        emit Withdraw(owner(), amount);
-    }
-
+    // Emit the Withdraw event
+    emit Withdraw(owner(), amount);
+}
     // Fallback function to accept ETH
     receive() external payable {}
 }
